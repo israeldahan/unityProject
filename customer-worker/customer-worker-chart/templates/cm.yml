@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "customer-worker.fullname" . }}-config
+
+data:
+  default.yaml: |
+    mongo:
+      username: my-user
+      password: password
+      database: customers
+      host: example-mongodb-0.example-mongodb-svc.mongodb.svc.cluster.local:27017,example-mongodb-1.example-mongodb-svc.mongodb.svc.cluster.local:27017,exampe-mongodb-2.example-mongodb-svc.mongodb.svc.cluster.local
+      port: 27017
+    kafka:
+      brokers:
+        - kafka-controller-0.kafka-controller-headless.kafka.svc.cluster.local:9092
+        - kafka-controller-1.kafka-controller-headless.kafka.svc.cluster.local:9092
+        - kafka-controller-2.kafka-controller-headless.kafka.svc.cluster.local:9092
+      topics:
+        customerCreated: customer-created
+        customerGetById: customer-get-by-id
+        customersGet: customer-get
+        dataSaved: data-saved
+
+  

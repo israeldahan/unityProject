@@ -1,0 +1,17 @@
+mongo:
+  username: root
+  password: example
+  database: customers
+  host: localhost
+  port: 27017
+
+kafka:
+  brokers:
+    - localhost:29092
+    - localhost:39092
+    - localhost:49092
+  topics:
+    customerCreated: customer-created
+    customerGetById: customer-get-by-id
+    customersGet: customer-get
+    dataSaved: data-saved

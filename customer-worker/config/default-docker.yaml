@@ -1,0 +1,17 @@
+mongo:
+  username: root
+  password: example
+  database: customers
+  host: mongo
+  port: 27017
+
+kafka:
+  brokers:
+    - broker-1:19092
+    - broker-2:19092
+    - broker-3:19092
+  topics:
+    customerCreated: customer-created
+    customerGetById: customer-get-by-id
+    customersGet: customer-get
+    dataSaved: data-saved

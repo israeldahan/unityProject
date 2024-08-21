@@ -1,0 +1,24 @@
+{{- if .Values.scaledobject.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "customer-api.fullname" . }}
+  labels:
+    {{- include "customer-api.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "customer-api.fullname" . }}
+  minReplicaCount: {{ .Values.scaledobject.minReplicaCount }}
+  maxReplicaCount: {{ .Values.scaledobject.maxReplicaCount }}
+  pollingInterval: {{ .Values.autoscaling.pollingInterval }}
+  triggers:
+  - type: kafka
+    metadata:
+      consumerGroup: {{ .Values.scaledobject.triggers.metadata.consumerGroup }}
+      bootstrapServers: {{ .Values.scaledobject.triggers.metadata.bootstrapServers | quote }}
+      lagThreshold: {{ .Values.scaledobject.triggers.metadata.lagThreshold | quote }}
+      offsetRestPolicy: {{ .Values.scaledobject.triggers.metadata.offsetRestPolicy }}
+
+{{- end }}
